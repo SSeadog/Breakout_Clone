@@ -37,8 +37,10 @@ public class Board extends JPanel {
     }
 
     private void gameInit() {
+        // 블록 정보를 담을 배열 생성
         bricks = new Brick[Commons.N_OF_BRICKS];
 
+        // ball, paddle 인스턴스 생성
         ball = new Ball();
         paddle = new Paddle();
 
@@ -74,10 +76,12 @@ public class Board extends JPanel {
     }
 
     private void drawObjects(Graphics2D g2d) {
+        // ball, paddle 그리기
         g2d.drawImage(ball.getImage(), ball.getX(), ball.getY(), ball.getImageWidth(), ball.getImageHeight(), this);
         g2d.drawImage(paddle.getImage(), paddle.getX(), paddle.getY(), paddle.getImageWidth(), paddle.getImageHeight(),
                 this);
 
+        // 블록 그리기
         for (int i = 0; i < Commons.N_OF_BRICKS; i++) {
             if (!bricks[i].isDestroyed()) {
                 g2d.drawImage(bricks[i].getImage(), bricks[i].getX(), bricks[i].getY(), bricks[i].getImageWidth(),
@@ -97,13 +101,13 @@ public class Board extends JPanel {
 
     private class TAdapter extends KeyAdapter {
         @Override
-        public void keyReleased(KeyEvent e) {
-            paddle.keyReleased(e);
+        public void keyPressed(KeyEvent e) {
+            paddle.keyPressed(e);
         }
 
         @Override
-        public void keyPressed(KeyEvent e) {
-            paddle.keyPressed(e);
+        public void keyReleased(KeyEvent e) {
+            paddle.keyReleased(e);
         }
     }
 

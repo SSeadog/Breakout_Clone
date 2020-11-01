@@ -33,7 +33,8 @@ public class Ball extends Sprite {
         }
 
         if (x == Commons.WIDTH - imageWidth) {
-            System.out.println(imageWidth);
+            // 이거 왜 출력??
+            // System.out.println(imageWidth);
             setXDir(-1);
         }
 

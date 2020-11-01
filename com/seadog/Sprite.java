@@ -6,8 +6,8 @@ import java.awt.Rectangle;
 // x,y 그리고 이미지의 크기에 관한 정보들을 가지고 있고 그걸 출력해주는 클래스
 public class Sprite {
 
-    int x;
-    int y;
+    int x; // x 좌표 저장
+    int y; // y 좌표 저장
     int imageWidth;
     int imageHeight;
     Image image;
