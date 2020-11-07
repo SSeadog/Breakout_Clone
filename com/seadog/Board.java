@@ -16,6 +16,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+
 public class Board extends JPanel {
     private Timer timer;
     private String message = "Game Over";
@@ -44,14 +49,30 @@ public class Board extends JPanel {
         ball = new Ball();
         paddle = new Paddle();
 
-        int k = 0;
-
-        for (int i = 0; i < 5; i++) {
-            for (int j = 0; j < 6; j++) {
-                bricks[k] = new Brick(j * 40 + 30, i * 10 + 50);
-                k++;
+        // txt에서 Brick들 위치 읽어오고 bricks에 위치 지정하며 넣음
+        try {
+            File file = new File("../Breakout_Map_Maker-master/Bricks.txt");
+            BufferedReader br = new BufferedReader(new FileReader(file));
+            String line;
+            int cur = -1;
+            while ((line = br.readLine()) != null) {
+                String[] split = line.split(",");
+                cur++;
+                bricks[cur] = new Brick(Integer.parseInt(split[0]), Integer.parseInt(split[1]));
             }
+            br.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+
+        // int k = 0;
+
+        // for (int i = 0; i < 5; i++) {
+        // for (int j = 0; j < 6; j++) {
+        // bricks[k] = new Brick(j * 40 + 30, i * 10 + 50);
+        // k++;
+        // }
+        // }
 
         timer = new Timer(Commons.PERIOD, new GameCycle());
         timer.start();
