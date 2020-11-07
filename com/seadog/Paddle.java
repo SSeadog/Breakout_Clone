@@ -27,9 +27,9 @@ public class Paddle extends Sprite {
 
     void move() {
         if (leftIsDown) {
-            dx = -1;
+            dx = -3;
         } else if (rightIsDown) {
-            dx = 1;
+            dx = 3;
         } else if (!(leftIsDown) || !(rightIsDown)) {
             dx = 0;
         }
@@ -40,14 +40,13 @@ public class Paddle extends Sprite {
             x = 0;
         }
 
-        if (x >= Commons.WIDTH - imageWidth) {
-            x = Commons.WIDTH - imageWidth;
+        if (x >= Commons.WIDTH - imageWidth * 2) {
+            x = Commons.WIDTH - imageWidth * 2;
         }
     }
 
     void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
-        System.out.println(key);
         // 다른 키를 떼지 않고 누르고, 누르자마자 누르자마자 누르고 있던 반대 방향키를 떼면 패들이 멈춤.
         // 중복 입력이 안되는 거 같음. a키 누르다가 b 누르고 b를 떼면 a는 눌러져 있지만 b로 인한 release 이벤트로 패들속도는 0이
         // 돼있음. 천천히 수정해보면 될듯

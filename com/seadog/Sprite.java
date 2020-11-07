@@ -30,11 +30,11 @@ public class Sprite {
     }
 
     int getImageWidth() {
-        return imageWidth;
+        return imageWidth * 2;
     }
 
     int getImageHeight() {
-        return imageHeight;
+        return imageHeight * 2;
     }
 
     Image getImage() {
@@ -42,7 +42,7 @@ public class Sprite {
     }
 
     Rectangle getRect() {
-        return new Rectangle(x, y, image.getWidth(null), image.getHeight(null));
+        return new Rectangle(x, y, image.getWidth(null) * 2, image.getHeight(null) * 2);
     }
 
     void getImageDimensions() {

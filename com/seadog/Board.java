@@ -51,14 +51,14 @@ public class Board extends JPanel {
 
         // txt에서 Brick들 위치 읽어오고 bricks에 위치 지정하며 넣음
         try {
-            File file = new File("../Breakout_Map_Maker-master/Bricks.txt");
+            File file = new File("../Breakout_Map_Maker/Bricks.txt");
             BufferedReader br = new BufferedReader(new FileReader(file));
             String line;
             int cur = -1;
             while ((line = br.readLine()) != null) {
                 String[] split = line.split(",");
                 cur++;
-                bricks[cur] = new Brick(Integer.parseInt(split[0]), Integer.parseInt(split[1]));
+                bricks[cur] = new Brick(Integer.parseInt(split[0]) * 2, Integer.parseInt(split[1]) * 2);
             }
             br.close();
         } catch (IOException e) {
@@ -171,38 +171,40 @@ public class Board extends JPanel {
             int paddleLPos = (int) paddle.getRect().getMinX();
             int ballLPos = (int) ball.getRect().getMinX();
 
-            int first = paddleLPos + 8;
-            int second = paddleLPos + 16;
-            int third = paddleLPos + 24;
-            int fourth = paddleLPos + 32;
+            int first = paddleLPos + 8 * 2;
+            int second = paddleLPos + 16 * 2;
+            int third = paddleLPos + 24 * 2;
+            int fourth = paddleLPos + 32 * 2;
 
+            // 패들과 공의 충돌감지
             // 패들을 5등분해서 부딪히는 위치에 따라 공을 다른 각도로 날림
             if (ballLPos < first) {
-                ball.setXDir(-1);
-                ball.setYDir(-1);
+                ball.setXDir(-2);
+                ball.setYDir(-2);
             }
 
             if (ballLPos >= first && ballLPos < second) {
-                ball.setXDir(-1);
+                ball.setXDir(-2);
                 ball.setYDir(-1 * ball.getYDir());
             }
 
             if (ballLPos >= second && ballLPos < third) {
                 ball.setXDir(0);
-                ball.setYDir(-1);
+                ball.setYDir(-2);
             }
 
             if (ballLPos >= third && ballLPos < fourth) {
-                ball.setXDir(1);
+                ball.setXDir(2);
                 ball.setYDir(-1 * ball.getYDir());
             }
 
             if (ballLPos > fourth) {
-                ball.setXDir(1);
-                ball.setYDir(-1);
+                ball.setXDir(2);
+                ball.setYDir(-2);
             }
         }
 
+        // 벽돌과 공의 충돌감지
         for (int i = 0; i < Commons.N_OF_BRICKS; i++) {
             if ((ball.getRect()).intersects(bricks[i].getRect())) {
                 int ballLeft = (int) ball.getRect().getMinX();
@@ -218,16 +220,16 @@ public class Board extends JPanel {
                 if (!bricks[i].isDestroyed()) {
                     if (bricks[i].getRect().contains(pointRight)) {
                         // 공의 오른쪽이 블록에 닿으면 x방향 -1로 바꿈
-                        ball.setXDir(-1);
+                        ball.setXDir(-2);
                     } else if (bricks[i].getRect().contains(pointLeft)) {
                         // 공의 오른쪽이 블록에 닿으면 x방향 -1로 바꿈
-                        ball.setXDir(1);
+                        ball.setXDir(2);
                     }
 
                     if (bricks[i].getRect().contains(pointTop)) {
-                        ball.setYDir(1);
+                        ball.setYDir(2);
                     } else if (bricks[i].getRect().contains(pointBottom)) {
-                        ball.setYDir(-1);
+                        ball.setYDir(-2);
                     }
                     bricks[i].setDestroyed(true);
                 }

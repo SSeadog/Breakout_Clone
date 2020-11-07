@@ -11,8 +11,8 @@ public class Ball extends Sprite {
     }
 
     private void initBall() {
-        xdir = 1;
-        ydir = -1;
+        xdir = 2;
+        ydir = -2;
 
         loadImage();
         getImageDimensions();
@@ -29,17 +29,17 @@ public class Ball extends Sprite {
         y += ydir;
 
         if (x == 0) {
-            setXDir(1);
+            setXDir(2);
         }
 
-        if (x == Commons.WIDTH - imageWidth) {
+        if (x >= Commons.WIDTH - imageWidth) {
             // 이거 왜 출력??
             // System.out.println(imageWidth);
-            setXDir(-1);
+            setXDir(-2);
         }
 
         if (y == 0) {
-            setYDir(1);
+            setYDir(2);
         }
     }
 
