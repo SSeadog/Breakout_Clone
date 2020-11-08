@@ -18,16 +18,22 @@ import java.awt.event.KeyEvent;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
 
-public class Board extends JPanel {
+import javazoom.jl.player.Player;
+
+public class Board extends JPanel implements Runnable {
     private Timer timer;
     private String message = "Game Over";
     private Ball ball;
     private Paddle paddle;
     private Brick[] bricks;
     private boolean inGame = true;
+
+    Thread th;
+    static Player player;
 
     public Board() {
         initBoard();
@@ -38,7 +44,22 @@ public class Board extends JPanel {
         setFocusable(true);
         setPreferredSize(new Dimension(Commons.WIDTH, Commons.HEIGHT));
 
+        th = new Thread(this);
+        th.start();
+
         gameInit();
+    }
+
+    @Override
+    public void run() {
+        try {
+            FileInputStream fileInputStream = new FileInputStream("resources/1.mp3");
+            player = new Player(fileInputStream);
+            System.out.println("Song is playing");
+            player.play();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void gameInit() {
@@ -112,12 +133,13 @@ public class Board extends JPanel {
     }
 
     private void gameFinished(Graphics2D g2d) {
-        var font = new Font("Verdana", Font.BOLD, 18);
+        var font = new Font("Verdana", Font.BOLD, 36);
         FontMetrics fontMetrics = this.getFontMetrics(font);
 
         g2d.setColor(Color.BLACK);
         g2d.setFont(font);
         g2d.drawString(message, (Commons.WIDTH - fontMetrics.stringWidth(message)) / 2, Commons.WIDTH / 2);
+        player.close();
     }
 
     private class TAdapter extends KeyAdapter {
