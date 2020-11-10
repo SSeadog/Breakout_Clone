@@ -72,14 +72,14 @@ public class Board extends JPanel implements Runnable {
 
         // txt에서 Brick들 위치 읽어오고 bricks에 위치 지정하며 넣음
         try {
-            File file = new File("../Breakout_Map_Maker/Bricks.txt");
+            File file = new File("stages/Bricks.txt");
             BufferedReader br = new BufferedReader(new FileReader(file));
             String line;
             int cur = -1;
             while ((line = br.readLine()) != null) {
                 String[] split = line.split(",");
                 cur++;
-                bricks[cur] = new Brick(Integer.parseInt(split[0]) * 2, Integer.parseInt(split[1]) * 2);
+                bricks[cur] = new Brick(Integer.parseInt(split[0]), Integer.parseInt(split[1]));
             }
             br.close();
         } catch (IOException e) {

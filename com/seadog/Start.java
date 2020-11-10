@@ -56,6 +56,7 @@ public class Start extends JFrame {
             System.out.println("1 Clicked");
             int x = getX();
             int y = getY();
+            System.out.println(x + ", " + y);
             dispose();
             var game = new Breakout(x, y);
             game.setVisible(true);
@@ -67,11 +68,18 @@ public class Start extends JFrame {
             setText(s);
             setSize(150, 50);
             setLocation(225, 550);
-            this.addMouseListener(new MouseAdapter() {
-                public void mousePressed(MouseEvent e) {
-                    System.out.println("2 Clicked");
-                }
-            });
+            this.addMouseListener(new MyMouse2());
+        }
+    }
+
+    class MyMouse2 extends MouseAdapter {
+        public void mousePressed(MouseEvent e) {
+            System.out.println("2 Clicked");
+            int x = getX();
+            int y = getY();
+            dispose();
+            var game = new MapMaker(x, y);
+            game.setVisible(true);
         }
     }
 }

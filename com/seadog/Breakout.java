@@ -20,7 +20,7 @@ public class Breakout extends JFrame {
 
     public static void main(String[] args) {
         EventQueue.invokeLater(() -> {
-            var game = new Breakout(100, 100);
+            var game = new Breakout(100, 0);
             game.setVisible(true);
         });
     }
