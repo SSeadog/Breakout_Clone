@@ -3,6 +3,10 @@ package com.seadog;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -17,6 +21,22 @@ public class MapMaker extends JFrame {
         setLocation(x, y);
         setContentPane(new MyPanel());
         setVisible(true);
+    }
+
+    int getStageCount() {
+        int cur = 0;
+        try {
+            while (true) {
+                File file = new File("stages/" + cur + ".txt");
+                BufferedReader br = new BufferedReader(new FileReader(file));
+                String line;
+                line = br.readLine();
+                cur++;
+            }
+        } catch (Exception e) {
+            System.out.println(cur + "error");
+        }
+        return cur;
     }
 
     class MyPanel extends JPanel {
@@ -46,7 +66,8 @@ public class MapMaker extends JFrame {
             if (cur == 9) {
                 System.out.println("Writing");
                 try {
-                    FileWriter fw = new FileWriter("stages/Bricks.txt");
+                    int c = getStageCount();
+                    FileWriter fw = new FileWriter("stages/" + c + ".txt");
                     for (int b = 0; b < 10; b++) {
                         fw.write(Bricks[b][0] + "," + Bricks[b][1] + "\n");
                     }

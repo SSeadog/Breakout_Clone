@@ -25,8 +25,8 @@ public class Start extends JFrame {
             setLayout(null);
             setBackground(Color.LIGHT_GRAY);
 
-            add(new Button1("1"));
-            add(new Button2("2"));
+            add(new Button1("Start"));
+            add(new Button2("Stack Block"));
         }
 
         @Override
