@@ -32,10 +32,13 @@ public class Board extends JPanel implements Runnable {
     private Brick[] bricks;
     private boolean inGame = true;
 
+    private String stage;
+
     Thread th;
     static Player player;
 
-    public Board() {
+    public Board(String stage) {
+        this.stage = stage;
         initBoard();
     }
 
@@ -72,7 +75,7 @@ public class Board extends JPanel implements Runnable {
 
         // txt에서 Brick들 위치 읽어오고 bricks에 위치 지정하며 넣음
         try {
-            File file = new File("stages/Bricks.txt");
+            File file = new File("stages/" + stage + ".txt");
             BufferedReader br = new BufferedReader(new FileReader(file));
             String line;
             int cur = -1;

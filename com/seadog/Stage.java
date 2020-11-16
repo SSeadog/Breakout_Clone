@@ -1,6 +1,7 @@
 package com.seadog;
 
 import javax.swing.*;
+
 import java.awt.event.*;
 import java.awt.*;
 
@@ -45,6 +46,7 @@ public class Stage extends JFrame {
             st4.setFont(new Font("Arial", Font.BOLD, 100));
             st4.setSize(100, 100);
             st4.setLocation(350, 550);
+            st4.addMouseListener(new MyMouse(st4));
             add(st4);
 
             JLabel left = new JLabel("<");
@@ -57,7 +59,31 @@ public class Stage extends JFrame {
             right.setFont(new Font("Arial", Font.PLAIN, 100));
             right.setSize(100, 100);
             right.setLocation(500, 450);
+            right.addMouseListener(new MouseAdapter() {
+                public void mousePressed(MouseEvent e) {
+                    int num = Integer.parseInt(st4.getText()) + 4;
+                    st4.setText(Integer.toString(num));
+                }
+            });
             add(right);
+        }
+    }
+
+    class MyMouse extends MouseAdapter {
+        JLabel lbl;
+
+        public MyMouse(JLabel lbl) {
+            this.lbl = lbl;
+        }
+
+        public void mousePressed(MouseEvent e) {
+            System.out.println(lbl.getText());
+            int x = getX();
+            int y = getY();
+            System.out.println(x + ", " + y);
+            dispose();
+            var game = new Breakout(lbl.getText(), x, y);
+            game.setVisible(true);
         }
     }
 

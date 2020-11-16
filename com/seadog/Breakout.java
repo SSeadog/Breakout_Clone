@@ -4,12 +4,18 @@ import javax.swing.JFrame;
 import java.awt.EventQueue;
 
 public class Breakout extends JFrame {
-    public Breakout(int x, int y) {
-        initUI(x, y);
+    private String stage;
+    private int x, y;
+
+    public Breakout(String stage, int x, int y) {
+        this.stage = stage;
+        this.x = x;
+        this.y = y;
+        initUI();
     }
 
-    private void initUI(int x, int y) {
-        add(new Board());
+    private void initUI() {
+        add(new Board(stage));
         setTitle("Breakout");
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -20,7 +26,7 @@ public class Breakout extends JFrame {
 
     public static void main(String[] args) {
         EventQueue.invokeLater(() -> {
-            var game = new Breakout(100, 0);
+            var game = new Breakout("Bricks", 100, 0);
             game.setVisible(true);
         });
     }
