@@ -58,7 +58,7 @@ public class Start extends JFrame {
             int y = getY();
             System.out.println(x + ", " + y);
             dispose();
-            var game = new Breakout("Bricks", x, y);
+            var game = new Stage(x, y);
             game.setVisible(true);
         }
     }

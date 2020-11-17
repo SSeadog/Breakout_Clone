@@ -29,9 +29,9 @@ public class MapMaker extends JFrame {
             while (true) {
                 File file = new File("stages/" + cur + ".txt");
                 BufferedReader br = new BufferedReader(new FileReader(file));
-                String line;
-                line = br.readLine();
+                br.readLine();
                 cur++;
+                br.close();
             }
         } catch (Exception e) {
             System.out.println(cur + "error");
